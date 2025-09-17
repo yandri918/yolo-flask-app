@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deteksi Objek YOLOv8 dengan Flask</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; text-align: center; background-color: #f4f4f9; }
+        h1 { color: #333; }
+        .container { display: flex; justify-content: space-around; margin-top: 30px; flex-wrap: wrap; }
+        .image-box { border: 2px dashed #ccc; padding: 20px; margin: 10px; background-color: #fff; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        img { max-width: 100%; height: auto; max-height: 400px; }
+        form { margin-bottom: 30px; }
+        input[type="file"] { border: 1px solid #ddd; padding: 10px; border-radius: 5px; }
+        input[type="submit"] { background-color: #4CAF50; color: white; padding: 12px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; }
+        input[type="submit"]:hover { background-color: #45a049; }
+    </style>
+</head>
+<body>
+
+    <h1>🚀 Unggah Gambar untuk Deteksi Objek YOLOv8</h1>
+    <p>Aplikasi ini menggunakan model `yolov8n.pt` untuk mendeteksi objek dalam gambar Anda.</p>
+    
+    <form method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".png, .jpg, .jpeg" required>
+        <input type="submit" value="Deteksi Objek">
+    </form>
+
+    {% if original_image and result_image %}
+    <div class="container">
+        <div class="image-box">
+            <h2>Gambar Asli</h2>
+            <img src="{{ url_for('static', filename=original_image.split('static/')[1]) }}" alt="Gambar Asli">
+        </div>
+        <div class="image-box">
+            <h2>Hasil Deteksi</h2>
+            <img src="{{ url_for('static', filename=result_image.split('static/')[1]) }}" alt="Hasil Deteksi YOLO">
+        </div>
+    </div>
+    {% endif %}
+
+</body>
+</html>
